@@ -153,17 +153,7 @@ namespace TelefonRehberi
 
         private void grdKisiler_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex>=0)
-            {
-                var row = grdKisiler.Rows[e.RowIndex];
-                txtAd.Text = row.Cells["Ad"].Value.ToString();
-                txtSoyad.Text = row.Cells["Soyad"].Value.ToString();
-                txtTel1.Text= row.Cells["Tel_No1"].Value.ToString();
-                txtTel2.Text = row.Cells["Tel_No2"].Value.ToString();
-                txtMail.Text = row.Cells["Mail"].Value.ToString();
-                txtUnvan.Text = row.Cells["Unvan"].Value.ToString();
-                cmbGrup.Text = row.Cells["Grup"].Value.ToString();
-            }
+
         }
 
         private void Temizle()
@@ -246,6 +236,11 @@ namespace TelefonRehberi
 
             GruplarYukleCombo();
             GruplarYukleAraCombo();
+        }
+
+        private void grdKisiler_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
