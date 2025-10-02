@@ -17,14 +17,47 @@ namespace TelefonRehberi
         {
             InitializeComponent();
         }
-
+        private int seciliGrupId = -1;
         private void GruplarYukle()
         {
             using (var db=new TelefonRehberiDBEntities1())
             {
                 var gruplar=db.Gruplar.ToList();
-                grdGruplar.DataSource= gruplar;
+
+                grdGruplar.AutoGenerateColumns = false;
+                grdGruplar.DataSource = gruplar;
+
+                if (grdGruplar.Columns.Count==0)
+                {
+                    grdGruplar.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        DataPropertyName = "Grup_Id",
+                        HeaderText = "ID",
+                        Name = "Grup_Id",
+                        Visible = false
+                    });
+                    grdGruplar.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        DataPropertyName = "Grup_Adi",
+                        HeaderText = "Grup Adı",
+                        Name = "Grup_Adi"
+                        
+                    });
+                    grdGruplar.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        DataPropertyName = "Aciklama",
+                        HeaderText = "Açıklama",
+                        Name = "Aciklama"
+                        
+                    });
+                }
             }
+            grdGruplar.ClearSelection();
+
+            grdGruplar.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill;
+            grdGruplar.AutoSizeRowsMode=DataGridViewAutoSizeRowsMode.AllCells;
+            grdGruplar.SelectionMode=DataGridViewSelectionMode.FullRowSelect;
+            grdGruplar.MultiSelect=false;
         }
 
         private void GrupIslemleri_Load(object sender, EventArgs e)
@@ -47,25 +80,33 @@ namespace TelefonRehberi
 
                 MessageBox.Show("Yeni grup eklendi.");
                 GruplarYukle();
+                Temizle();
             }
         }
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            if (grdGruplar.SelectedRows.Count>0)
+            if (grdGruplar.CurrentRow!=null)
             {
-                int grupId = Convert.ToInt32(grdGruplar.SelectedRows[0].Cells["Grup_Id"].Value);
+                int grupId = Convert.ToInt32(grdGruplar.CurrentRow.Cells["Grup_Id"].Value);
 
                 using (var db=new TelefonRehberiDBEntities1())
                 {
                     var grup=db.Gruplar.FirstOrDefault(g=>g.Grup_Id==grupId);
                     if (grup!=null)
                     {
+                        var kisiler=db.Kisiler.Where(k=>k.Grup_ID==grupId).ToList();
+
+                        foreach (var kisi in kisiler)
+                        {
+                            kisi.Grup_ID = null;
+                        }
                         db.Gruplar.Remove(grup);
                         db.SaveChanges() ;
 
                         MessageBox.Show("Grup silindi.");
                         GruplarYukle() ;
+                        Temizle() ;
                     }
                 }
             }
@@ -77,35 +118,53 @@ namespace TelefonRehberi
 
         private void btnGuncelle_Click(object sender, EventArgs e)
         {
-            if (grdGruplar.SelectedRows.Count > 0)
+            if (seciliGrupId==-1)
             {
-                int grupId = Convert.ToInt32(grdGruplar.SelectedRows[0].Cells["Grup_Id"].Value);
+                MessageBox.Show("Lütfen güncellenecek bir grup seçiniz.");
+                return;
+            }
 
-                using (var context = new TelefonRehberiDBEntities1())
+            using (var db = new TelefonRehberiDBEntities1())
+            {
+                var grup = db.Gruplar.FirstOrDefault(g => g.Grup_Id == seciliGrupId);
+                if (grup != null)
                 {
-                    var grup = context.Gruplar.FirstOrDefault(g => g.Grup_Id == grupId);
-                    if (grup != null)
-                    {
-                        grup.Grup_Adi=txtGrupAdi.Text;
-                        grup.Aciklama=txtGrupAciklama.Text;
+                    grup.Grup_Adi=txtGrupAdi.Text;
+                    grup.Aciklama=txtGrupAciklama.Text;
 
-                        context.SaveChanges();
+                    db.SaveChanges();
 
-                        MessageBox.Show("Grup güncellendi.");
-                        GruplarYukle();
-                    }
+                    MessageBox.Show("Grup Güncellendi");
+                    GruplarYukle();
+
+                    Temizle();
+                    seciliGrupId = -1;
+                    grdGruplar.ClearSelection();
                 }
             }
         }
 
         private void grdGruplar_SelectionChanged(object sender, EventArgs e)
         {
-            if (grdGruplar.SelectedRows.Count>0)
+
+        }
+
+        private void grdGruplar_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>=0)
             {
-                var selectedRow = grdGruplar.SelectedRows[0];
-                txtGrupAdi.Text = selectedRow.Cells["Grup_Adi"].Value.ToString();
-                txtGrupAciklama.Text = selectedRow.Cells["Aciklama"].Value.ToString();
+                var row = grdGruplar.Rows[e.RowIndex];
+                seciliGrupId = Convert.ToInt32(row.Cells["Grup_Id"].Value);
+
+                txtGrupAdi.Text = row.Cells["Grup_Adi"].Value.ToString();
+                txtGrupAciklama.Text = row.Cells["Aciklama"].Value.ToString();
             }
+        }
+
+        private void Temizle()
+        {
+            txtGrupAdi.Clear();
+            txtGrupAciklama.Clear();
         }
     }
 }

@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtGrupAdi = new System.Windows.Forms.TextBox();
+            this.btnYeniKayit = new System.Windows.Forms.Button();
             this.txtGrupAciklama = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnYeniKayit = new System.Windows.Forms.Button();
+            this.txtGrupAdi = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnEkle = new System.Windows.Forms.Button();
-            this.btnGuncelle = new System.Windows.Forms.Button();
-            this.btnSil = new System.Windows.Forms.Button();
             this.grdGruplar = new System.Windows.Forms.DataGridView();
+            this.btnSil = new System.Windows.Forms.Button();
+            this.btnGuncelle = new System.Windows.Forms.Button();
+            this.btnEkle = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGruplar)).BeginInit();
@@ -58,21 +58,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bilgi Girişi";
             // 
-            // label1
+            // btnYeniKayit
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(160, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Grup Adı : ";
-            // 
-            // txtGrupAdi
-            // 
-            this.txtGrupAdi.Location = new System.Drawing.Point(234, 42);
-            this.txtGrupAdi.Name = "txtGrupAdi";
-            this.txtGrupAdi.Size = new System.Drawing.Size(229, 22);
-            this.txtGrupAdi.TabIndex = 1;
+            this.btnYeniKayit.Location = new System.Drawing.Point(666, 21);
+            this.btnYeniKayit.Name = "btnYeniKayit";
+            this.btnYeniKayit.Size = new System.Drawing.Size(104, 40);
+            this.btnYeniKayit.TabIndex = 4;
+            this.btnYeniKayit.Text = "Yeni Kayıt";
+            this.btnYeniKayit.UseVisualStyleBackColor = true;
             // 
             // txtGrupAciklama
             // 
@@ -90,14 +83,21 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Açıklama : ";
             // 
-            // btnYeniKayit
+            // txtGrupAdi
             // 
-            this.btnYeniKayit.Location = new System.Drawing.Point(666, 21);
-            this.btnYeniKayit.Name = "btnYeniKayit";
-            this.btnYeniKayit.Size = new System.Drawing.Size(104, 40);
-            this.btnYeniKayit.TabIndex = 4;
-            this.btnYeniKayit.Text = "Yeni Kayıt";
-            this.btnYeniKayit.UseVisualStyleBackColor = true;
+            this.txtGrupAdi.Location = new System.Drawing.Point(234, 42);
+            this.txtGrupAdi.Name = "txtGrupAdi";
+            this.txtGrupAdi.Size = new System.Drawing.Size(229, 22);
+            this.txtGrupAdi.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(160, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Grup Adı : ";
             // 
             // groupBox2
             // 
@@ -112,25 +112,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "İşlemler";
             // 
-            // btnEkle
+            // grdGruplar
             // 
-            this.btnEkle.Location = new System.Drawing.Point(245, 21);
-            this.btnEkle.Name = "btnEkle";
-            this.btnEkle.Size = new System.Drawing.Size(96, 41);
-            this.btnEkle.TabIndex = 0;
-            this.btnEkle.Text = "EKLE";
-            this.btnEkle.UseVisualStyleBackColor = true;
-            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
-            // 
-            // btnGuncelle
-            // 
-            this.btnGuncelle.Location = new System.Drawing.Point(449, 21);
-            this.btnGuncelle.Name = "btnGuncelle";
-            this.btnGuncelle.Size = new System.Drawing.Size(96, 41);
-            this.btnGuncelle.TabIndex = 1;
-            this.btnGuncelle.Text = "GÜNCELLE";
-            this.btnGuncelle.UseVisualStyleBackColor = true;
-            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            this.grdGruplar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdGruplar.Location = new System.Drawing.Point(6, 68);
+            this.grdGruplar.Name = "grdGruplar";
+            this.grdGruplar.RowHeadersWidth = 51;
+            this.grdGruplar.RowTemplate.Height = 24;
+            this.grdGruplar.Size = new System.Drawing.Size(764, 287);
+            this.grdGruplar.TabIndex = 3;
+            this.grdGruplar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdGruplar_CellClick);
             // 
             // btnSil
             // 
@@ -142,16 +133,25 @@
             this.btnSil.UseVisualStyleBackColor = true;
             this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
-            // grdGruplar
+            // btnGuncelle
             // 
-            this.grdGruplar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdGruplar.Location = new System.Drawing.Point(6, 68);
-            this.grdGruplar.Name = "grdGruplar";
-            this.grdGruplar.RowHeadersWidth = 51;
-            this.grdGruplar.RowTemplate.Height = 24;
-            this.grdGruplar.Size = new System.Drawing.Size(764, 287);
-            this.grdGruplar.TabIndex = 3;
-            this.grdGruplar.SelectionChanged += new System.EventHandler(this.grdGruplar_SelectionChanged);
+            this.btnGuncelle.Location = new System.Drawing.Point(449, 21);
+            this.btnGuncelle.Name = "btnGuncelle";
+            this.btnGuncelle.Size = new System.Drawing.Size(96, 41);
+            this.btnGuncelle.TabIndex = 1;
+            this.btnGuncelle.Text = "GÜNCELLE";
+            this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
+            // 
+            // btnEkle
+            // 
+            this.btnEkle.Location = new System.Drawing.Point(245, 21);
+            this.btnEkle.Name = "btnEkle";
+            this.btnEkle.Size = new System.Drawing.Size(96, 41);
+            this.btnEkle.TabIndex = 0;
+            this.btnEkle.Text = "EKLE";
+            this.btnEkle.UseVisualStyleBackColor = true;
+            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // GrupIslemleri
             // 
