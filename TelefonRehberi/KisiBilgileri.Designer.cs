@@ -84,15 +84,17 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtAd);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1115, 202);
+            this.groupBox1.Size = new System.Drawing.Size(1139, 202);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "KİŞİ BİLGİLERİ";
             // 
             // btnSil
             // 
+            this.btnSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSil.Location = new System.Drawing.Point(877, 142);
             this.btnSil.Name = "btnSil";
             this.btnSil.Size = new System.Drawing.Size(107, 37);
@@ -103,6 +105,7 @@
             // 
             // btnGuncelle
             // 
+            this.btnGuncelle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuncelle.Location = new System.Drawing.Point(990, 142);
             this.btnGuncelle.Name = "btnGuncelle";
             this.btnGuncelle.Size = new System.Drawing.Size(107, 37);
@@ -113,6 +116,7 @@
             // 
             // btnEkle
             // 
+            this.btnEkle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEkle.Location = new System.Drawing.Point(764, 142);
             this.btnEkle.Name = "btnEkle";
             this.btnEkle.Size = new System.Drawing.Size(107, 37);
@@ -264,9 +268,10 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtAdAra);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(12, 220);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 202);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1115, 367);
+            this.groupBox2.Size = new System.Drawing.Size(1139, 397);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "KİŞİLERDE ARA";
@@ -274,16 +279,20 @@
             // grdKisiler
             // 
             this.grdKisiler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdKisiler.Location = new System.Drawing.Point(9, 73);
+            this.grdKisiler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdKisiler.Location = new System.Drawing.Point(3, 18);
             this.grdKisiler.Name = "grdKisiler";
             this.grdKisiler.RowHeadersWidth = 51;
             this.grdKisiler.RowTemplate.Height = 24;
-            this.grdKisiler.Size = new System.Drawing.Size(1097, 288);
+            this.grdKisiler.Size = new System.Drawing.Size(1133, 376);
             this.grdKisiler.TabIndex = 8;
             this.grdKisiler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdKisiler_CellClick);
+            this.grdKisiler.Click += new System.EventHandler(this.grdKisiler_Click);
             // 
             // cmbGrupAra
             // 
+            this.cmbGrupAra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGrupAra.FormattingEnabled = true;
             this.cmbGrupAra.Location = new System.Drawing.Point(852, 35);
             this.cmbGrupAra.Name = "cmbGrupAra";
@@ -302,6 +311,8 @@
             // 
             // txtTelAra
             // 
+            this.txtTelAra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTelAra.Location = new System.Drawing.Point(596, 37);
             this.txtTelAra.Name = "txtTelAra";
             this.txtTelAra.Size = new System.Drawing.Size(164, 22);
@@ -319,6 +330,8 @@
             // 
             // txtSoyadAra
             // 
+            this.txtSoyadAra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSoyadAra.Location = new System.Drawing.Point(312, 37);
             this.txtSoyadAra.Name = "txtSoyadAra";
             this.txtSoyadAra.Size = new System.Drawing.Size(164, 22);
@@ -336,6 +349,8 @@
             // 
             // txtAdAra
             // 
+            this.txtAdAra.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAdAra.Location = new System.Drawing.Point(45, 37);
             this.txtAdAra.Name = "txtAdAra";
             this.txtAdAra.Size = new System.Drawing.Size(164, 22);
