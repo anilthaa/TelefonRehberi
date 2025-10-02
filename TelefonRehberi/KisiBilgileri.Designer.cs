@@ -89,7 +89,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1115, 202);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "KİŞİ BİLGİLERİ";
             // 
             // btnSil
             // 
@@ -99,6 +99,7 @@
             this.btnSil.TabIndex = 18;
             this.btnSil.Text = "SİL";
             this.btnSil.UseVisualStyleBackColor = true;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
             // 
             // btnGuncelle
             // 
@@ -108,6 +109,7 @@
             this.btnGuncelle.TabIndex = 17;
             this.btnGuncelle.Text = "GÜNCELLE";
             this.btnGuncelle.UseVisualStyleBackColor = true;
+            this.btnGuncelle.Click += new System.EventHandler(this.btnGuncelle_Click);
             // 
             // btnEkle
             // 
@@ -117,6 +119,7 @@
             this.btnEkle.TabIndex = 16;
             this.btnEkle.Text = "EKLE";
             this.btnEkle.UseVisualStyleBackColor = true;
+            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // btnYeniKayit
             // 
@@ -135,6 +138,7 @@
             this.btnYeniGrup.TabIndex = 14;
             this.btnYeniGrup.Text = "+";
             this.btnYeniGrup.UseVisualStyleBackColor = true;
+            this.btnYeniGrup.Click += new System.EventHandler(this.btnYeniGrup_Click);
             // 
             // txtUnvan
             // 
@@ -276,6 +280,7 @@
             this.grdKisiler.RowTemplate.Height = 24;
             this.grdKisiler.Size = new System.Drawing.Size(1097, 288);
             this.grdKisiler.TabIndex = 8;
+            this.grdKisiler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdKisiler_CellClick);
             // 
             // cmbGrupAra
             // 
@@ -284,6 +289,7 @@
             this.cmbGrupAra.Name = "cmbGrupAra";
             this.cmbGrupAra.Size = new System.Drawing.Size(193, 24);
             this.cmbGrupAra.TabIndex = 7;
+            this.cmbGrupAra.SelectedIndexChanged += new System.EventHandler(this.cmbGrupAra_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -300,6 +306,7 @@
             this.txtTelAra.Name = "txtTelAra";
             this.txtTelAra.Size = new System.Drawing.Size(164, 22);
             this.txtTelAra.TabIndex = 5;
+            this.txtTelAra.TextChanged += new System.EventHandler(this.txtTelAra_TextChanged);
             // 
             // label10
             // 
@@ -316,6 +323,7 @@
             this.txtSoyadAra.Name = "txtSoyadAra";
             this.txtSoyadAra.Size = new System.Drawing.Size(164, 22);
             this.txtSoyadAra.TabIndex = 3;
+            this.txtSoyadAra.TextChanged += new System.EventHandler(this.txtSoyadAra_TextChanged);
             // 
             // label9
             // 
@@ -332,6 +340,7 @@
             this.txtAdAra.Name = "txtAdAra";
             this.txtAdAra.Size = new System.Drawing.Size(164, 22);
             this.txtAdAra.TabIndex = 1;
+            this.txtAdAra.TextChanged += new System.EventHandler(this.txtAdAra_TextChanged);
             // 
             // label8
             // 
@@ -351,6 +360,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "KisiBilgileri";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.KisiBilgileri_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
