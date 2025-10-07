@@ -48,8 +48,9 @@ namespace TelefonRehberi
         {
             using (var db = new TelefonRehberiDBEntities1())
             {
-                var kisiler = db.Kisiler.Select(k => new
+                var kisiler = db.Kisiler.AsEnumerable().Select((k,index) => new
                 {
+                    Sira=index+1,
                     k.Kisi_Id,
                     k.Ad,
                     k.Soyad,
@@ -57,11 +58,13 @@ namespace TelefonRehberi
                     k.Tel_No2,
                     k.Mail,
                     k.Unvan,
+                    k.Grup_ID,
                     Grup = (k.Gruplar!=null ? k.Gruplar.Grup_Adi:"Grupsuz")
                 }).ToList();
 
                 grdKisiler.DataSource = kisiler;
-                               
+                grdKisiler.Columns["Kisi_Id"].Visible = false;
+                
             }
 
             grdKisiler.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill;
@@ -72,11 +75,13 @@ namespace TelefonRehberi
         private bool formHazir=false;
         private void KisiBilgileri_Load(object sender, EventArgs e)
         {
-            KisilerYukle();
+            formHazir = false;
+            KisilerGridSutunlariOlustur();
             GruplarYukleCombo();
             GruplarYukleAraCombo();
+            KisilerYukle();
 
-            formHazir = true;
+            formHazir=true;
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -153,7 +158,27 @@ namespace TelefonRehberi
 
         private void grdKisiler_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex>=0)
+            {
+                var row = grdKisiler.Rows[e.RowIndex];
+                
+                txtAd.Text = row.Cells["Ad"].Value.ToString();
+                txtSoyad.Text = row.Cells["Soyad"].Value.ToString();
+                txtTel1.Text = row.Cells["Tel_No1"].Value.ToString();
+                txtTel2.Text = row.Cells["Tel_No2"].Value.ToString();
+                txtMail.Text = row.Cells["Mail"].Value.ToString();
+                txtUnvan.Text = row.Cells["Unvan"].Value.ToString();
 
+                var grupID = row.Cells["Grup_ID"].Value;
+                if(grupID!=null && int.TryParse(grupID.ToString(), out int grupId))
+                {
+                    cmbGrup.SelectedValue = grupId;
+                }
+                else
+                {
+                    cmbGrup.SelectedIndex = -1;
+                }
+            }
         }
 
         private void Temizle()
@@ -231,16 +256,139 @@ namespace TelefonRehberi
 
         private void btnYeniGrup_Click(object sender, EventArgs e)
         {
-            GrupIslemleri frm=new GrupIslemleri();
-            frm.ShowDialog();
+            using (var frm=new GrupIslemleri())
+            {
+                frm.ShowDialog();
+                GruplarYukleCombo();
+                GruplarYukleAraCombo();
+                KisilerYukle();
+            }
 
-            GruplarYukleCombo();
-            GruplarYukleAraCombo();
+
+
         }
 
         private void grdKisiler_Click(object sender, EventArgs e)
         {
 
+        }
+        private void KisilerGridSutunlariOlustur()
+        {
+            grdKisiler.AutoGenerateColumns = false;
+            grdKisiler.Columns.Clear();
+
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Sira",
+                HeaderText = "Sıra",
+                Name = "Sira",
+                Width = 50
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Kisi_Id",
+                HeaderText = "ID",
+                Name = "Kisi_Id",
+                Visible = false
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Ad",
+                HeaderText = "Ad",
+                Name = "Ad",
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Soyad",
+                HeaderText = "Soyad",
+                Name = "Soyad"
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Tel_No1",
+                HeaderText = "Telefon 1",
+                Name = "Tel_No1",
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Tel_No2",
+                HeaderText = "Telefon 2",
+                Name = "Tel_No2"
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Mail",
+                HeaderText = "Mail",
+                Name = "Mail"
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Unvan",
+                HeaderText = "Unvan",
+                Name = "Unvan"
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Grup_Id",
+                HeaderText = "Grup ID",
+                Name = "Grup_Id",
+                Visible = false
+            });
+            grdKisiler.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                DataPropertyName = "Grup",
+                HeaderText = "Grup",
+                Name = "Grup"
+            });
+
+            grdKisiler.AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill;
+            grdKisiler.SelectionMode=DataGridViewSelectionMode.FullRowSelect;
+            grdKisiler.MultiSelect = false;
+            grdKisiler.ReadOnly = true;
+            grdKisiler.AllowUserToAddRows = false;
+            grdKisiler.AllowUserToDeleteRows = false;
+        }
+
+        private void btnGruptanCikar_Click(object sender, EventArgs e)
+        {
+            if (grdKisiler.CurrentRow==null)
+            {
+                MessageBox.Show("Lütfen önce bir kişi seçiniz.","Uyarı", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+
+            int kisiId = Convert.ToInt32(grdKisiler.CurrentRow.Cells["Kisi_Id"].Value);
+
+            
+
+            using (var db= new TelefonRehberiDBEntities1())
+            {
+                var kisi=db.Kisiler.FirstOrDefault(k=>k.Kisi_Id==kisiId);
+                if (kisi==null)
+                {
+                    MessageBox.Show("Kişi bulunamadı","Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (kisi.Grup_ID==null)
+                {
+                    MessageBox.Show("Bu kişi zaten grupta değil.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                DialogResult cevap=MessageBox.Show("Bu kişiyi gruptan çıkarmak istediğinize emin misiniz?","Onay",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+
+                if (cevap==DialogResult.No)
+                {
+                    return;
+                }
+
+                kisi.Grup_ID = null;
+                db.SaveChanges();
+            }
+
+            KisilerYukle();
+
+            MessageBox.Show("Kişi gruptan çıkarıldı.","Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }

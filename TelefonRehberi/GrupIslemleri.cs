@@ -22,13 +22,26 @@ namespace TelefonRehberi
         {
             using (var db=new TelefonRehberiDBEntities1())
             {
-                var gruplar=db.Gruplar.ToList();
+                var gruplar=db.Gruplar.AsEnumerable().Select((g, index)=>new
+                {
+                    Sira=index+1,
+                    g.Grup_Id,
+                    g.Grup_Adi,
+                    g.Aciklama,
+                }).ToList();
 
                 grdGruplar.AutoGenerateColumns = false;
                 grdGruplar.DataSource = gruplar;
 
                 if (grdGruplar.Columns.Count==0)
                 {
+                    grdGruplar.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        DataPropertyName = "Sira",
+                        HeaderText = "Sıra",
+                        Name = "Sira",
+                        Width = 50,
+                    });
                     grdGruplar.Columns.Add(new DataGridViewTextBoxColumn()
                     {
                         DataPropertyName = "Grup_Id",
