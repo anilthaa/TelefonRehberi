@@ -58,6 +58,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtAdAra = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnGruptanCikar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdKisiler)).BeginInit();
@@ -65,6 +66,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGruptanCikar);
             this.groupBox1.Controls.Add(this.btnSil);
             this.groupBox1.Controls.Add(this.btnGuncelle);
             this.groupBox1.Controls.Add(this.btnEkle);
@@ -366,6 +368,17 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Ad : ";
             // 
+            // btnGruptanCikar
+            // 
+            this.btnGruptanCikar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGruptanCikar.Location = new System.Drawing.Point(636, 133);
+            this.btnGruptanCikar.Name = "btnGruptanCikar";
+            this.btnGruptanCikar.Size = new System.Drawing.Size(122, 54);
+            this.btnGruptanCikar.TabIndex = 19;
+            this.btnGruptanCikar.Text = "GRUPTAN ÇIKAR";
+            this.btnGruptanCikar.UseVisualStyleBackColor = true;
+            this.btnGruptanCikar.Click += new System.EventHandler(this.btnGruptanCikar_Click);
+            // 
             // KisiBilgileri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -417,6 +430,7 @@
         private System.Windows.Forms.TextBox txtAdAra;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView grdKisiler;
+        private System.Windows.Forms.Button btnGruptanCikar;
     }
 }
 
