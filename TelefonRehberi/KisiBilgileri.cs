@@ -389,6 +389,6 @@ namespace TelefonRehberi
             KisilerYukle();
 
             MessageBox.Show("Kişi gruptan çıkarıldı.","Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Information);
-        }
+        } 
     }
 }
